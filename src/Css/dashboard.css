@@ -1,0 +1,252 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* GLOBAL */
+body {
+  display: flex;
+  background: #f5f7fa;
+  color: #333;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: #8e7491;
+  min-height: 100vh;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-logo img {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+}
+
+.sidebar-menu li {
+  margin: 15px 0;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.sidebar-menu li.active a,
+.sidebar-menu li a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* CONTENU PRINCIPAL */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.topbar h1 {
+  font-size: 1.8rem;
+}
+
+.topbar-date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* DASHBOARD CARDS */
+.dashboard-cards {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  flex: 1;
+  min-width: 350px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* BALANCE CARD */
+.balance-card {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  color: #fff;
+  text-align: center;
+}
+
+.balance-card h3 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.balance-card h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.card-actions button:hover {
+  background: rgba(255,255,255,0.5);
+  transform: scale(1.05);
+}
+#filtreTrans {
+  padding: 10px 15px;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  background: #f9fafc;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  min-width: 150px;
+}
+#searchBar {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px 15px;
+  border: 2px solid  #f0f0f0;
+  border-radius: 12px;
+  background: #f9fafc;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  outline: none;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+/* TRANSACTIONS TABLE */
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.transactions-table th {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.transactions-table tbody tr {
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.transactions-table tbody tr:hover {
+  background: #f5f7fa;
+}
+
+.transactions-table .success {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.transactions-table .failed {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media(max-width: 1200px) {
+  .dashboard-cards {
+    flex-direction: column;
+  }
+}
+/* Conteneur des boutons */
+.card-actions {
+  display: flex;
+  gap: 15px;           /* Espace entre les boutons */
+  justify-content: center;  /* Centrer les boutons horizontalement */
+  flex-wrap: wrap;     /* Passer à la ligne si l’écran est petit */
+  margin-top: 20px;
+}
+
+/* Style commun pour tous les boutons */
+.card-actions button {
+  display: flex;             /* Aligne l'image et le texte horizontalement */
+  align-items: center;       /* Centre verticalement l'image et le texte */
+  gap: 8px;                  /* Espace entre l'image et le texte */
+  padding: 12px 25px;        /* Espacement interne */
+  border: none;              /* Pas de bordure par défaut */
+  border-radius: 12px;       /* Coins arrondis */
+  cursor: pointer;           /* Curseur au survol */
+  font-weight: 600;          /* Texte en gras */
+  font-size: 1rem;           /* Taille du texte */
+  color: #fff;               /* Texte blanc */
+  background: linear-gradient(135deg, #ac39cf, #ec74d6); /* Dégradé bleu */
+  transition: background 0.3s, transform 0.2s; /* Animation */
+}
+
+/* Effet au survol */
+.card-actions button:hover {
+  background: linear-gradient(135deg, #b93ca9, #a5208d);
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Style pour les images dans les boutons */
+.card-actions button img {
+  width: 20px;            /* Largeur de l'image */
+  height: 20px;           /* Hauteur de l'image */
+  object-fit: contain;    /* Ajuste l'image sans la déformer */
+}
+

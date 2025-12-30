@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Wallet | Transférer</title>
+  <link rel="stylesheet" href="/src/Css/Transferer.css">
+</head>
+<body>
+
+  <div class="card">
+    <h2>Transférer de l'argent</h2>
+
+    <form id="transferForm">
+      <label for="amount">Montant (DH)</label>
+      <input type="number" id="amount" placeholder="Montant à transférer" min="1" required>
+      
+      <label for="email">Email du destinataire</label>
+      <input type="email" id="email" placeholder="exemple@email.com" required>
+      
+      <label for="description">Description (optionnel)</label>
+      <input type="text" id="description" placeholder="Ex: Remboursement">
+
+      <div id="errorMessage" class="error-message"></div>
+
+      <button type="submit" id="transferBtn">Transférer</button>
+    </form>
+    
+    <button id="retourBtn">Retour</button>
+  </div>
+  
+  <script type="module" src="/src/Controller/Transferer.js"></script>
+</body>
+</html>

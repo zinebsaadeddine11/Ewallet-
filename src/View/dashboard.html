@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord E-Wallet</title>
+  <link rel="stylesheet" href="/src/Css/dashboard.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="/assets/e-Wallet6.gif" alt="Logo E-Wallet">
+      <h2>E-Wallet</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="active"><a href="dashboard.html">Tableau de bord</a></li>
+      <li><a href="Transactions.html">Transactions</a></li>
+      <li><a href="Transferer.html">Envoyer</a></li>
+      <li><a href="#">Profil</a></li>
+      <li><a href="index.html">Se déconnecter</a></li>
+    </ul>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1 id="welcome_message"> </h1>
+      <span id="date" class="topbar-date"> </span>
+    </header>
+
+    <!-- Cartes du dashboard -->
+    <section class="dashboard-cards">
+      <div class="card balance-card">
+        <h3>Solde total</h3>
+        <h1 id="balance"> </h1>
+        <!-- Actions -->
+  <div class="card-actions">
+    <button id="transferer">
+      <img src="/assets/depot.png" alt="Transférer">
+      Transférer
+    </button>
+
+    <button id="recharger">
+      <img src="/assets/trans.png" alt="Recharger">
+      Recharger
+    </button>
+
+    <button id="payer">
+      <img src="/assets/payer.png" alt="Payer">
+      Payer
+    </button>
+  </div>
+      </div>
+
+      <div class="card stats-card">
+        <h3>Transactions récentes</h3>
+        <table id ="transactions" class="transactions-table">
+          <thead>
+            <tr>
+              <select name="typeTransactions" id="filtreTrans">
+              <option id="3">Toutes</option>
+              <option id="2">Sortie</option>
+              <option id="1">Entrée</option>
+            </select>
+           <input type="text" placeholder="Rechercher ici" id="searchBar">
+          </tr>
+        <tr>
+         <th>Date</th>
+         <th>Description</th>
+         <th>Type</th>
+         <th>Montant</th>
+      </tr>
+     </thead>
+      <tbody id="tbody">
+    <!-- Les transactions seront injectées ici -->
+  </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/Controller/Dashboard.js"></script>
+</body>
+</html>

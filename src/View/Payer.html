@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Wallet | Paiement</title>
+  <link rel="stylesheet" href="/src/Css/payer.css">
+</head>
+<body>
+
+  <div class="card">
+    <h2>Paiement</h2>
+
+    <form id="paymentForm">
+      <label for="amount">Montant (DH)</label>
+      <input type="number" id="amount" placeholder="Montant à payer" min="1" required>
+      
+      <label for="beneficiary">Nom du bénéficiaire</label>
+      <input type="text" id="beneficiary" placeholder="Nom complet" required>
+
+      <div id="errorMessage" class="error-message"></div>
+
+      <button type="submit" id="payBtn">Payer</button>
+    </form>
+    
+    <button id="RtrBtn">Retour</button>
+  </div>
+  
+  <script type="module" src="/src/Controller/payer.js"></script>
+</body>
+</html>

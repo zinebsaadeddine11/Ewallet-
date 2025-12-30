@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Wallet | Recharger</title>
+    <link rel="stylesheet" href="/src/Css/Recharger.css">
+</head>
+<body>
+    <div class="card">
+        <h2>Recharger</h2>
+
+        <form id="rechargeForm">
+            <label for="amount">Montant (DH)</label>
+            <input type="number" id="amount" placeholder="Montant à recharger" min="1" required>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <button type="submit" id="rechargeBtn">Recharger</button>
+        </form>
+        
+        <button id="retourBtn">Retour</button>
+    </div>
+
+    <script type="module" src="/src/Controller/recharger.js"></script>
+</body>
+</html>
