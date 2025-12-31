@@ -1,6 +1,6 @@
-import { rechargeAccount } from "../Services/RechargerServices";
+import { rechargeAccount } from "../Services/RechargerServices.js";
 
-const rechargeForm = document.getElementById("rechargeForm");
+// const rechargeForm = document.getElementById("rechargeForm");
 const amountInput = document.getElementById("amount");
 const rechargeBtn = document.getElementById("rechargeBtn");
 const retourBtn = document.getElementById("retourBtn");
@@ -16,8 +16,10 @@ function showError(message) {
     }, 4000);
 }
 
-rechargeForm.addEventListener("submit", (e) => {
-    e.preventDefault(); 
+rechargeBtn.addEventListener("click",handlereload);
+
+function handlereload()
+{
     
     const amount = parseFloat(amountInput.value);
     
@@ -34,15 +36,16 @@ rechargeForm.addEventListener("submit", (e) => {
     rechargeBtn.classList.add("loading");
     rechargeBtn.textContent = "Traitement en cours";
 
-    return rechargeAccount(user,amount).then(()=>
+    rechargeAccount(user,amount).then(()=>
     {
         rechargeBtn.classList.remove("loading");
         rechargeBtn.textContent = "✓ Recharge réussie !";
         rechargeBtn.style.background = "#2ecc71";
+        window.location.href="/src/View/dashboard.html";
     }
     ).catch((error)=>console.log(error));
       
-    });
+    }
 
 
 retourBtn.addEventListener("click", () => {
