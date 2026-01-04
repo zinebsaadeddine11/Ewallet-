@@ -1,12 +1,14 @@
-import { rechargeAccount } from "../Services/RechargerServices.js";
+import { rechargeAccount, getActiveCards } from "../Services/RechargerServices.js";
 
-// const rechargeForm = document.getElementById("rechargeForm");
 const amountInput = document.getElementById("amount");
+const cardIdInput = document.getElementById("cardId");
 const rechargeBtn = document.getElementById("rechargeBtn");
 const retourBtn = document.getElementById("retourBtn");
 const errorMessage = document.getElementById("errorMessage");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
+
+// Afficher un message d'erreur
 function showError(message) {
     errorMessage.textContent = message;
     errorMessage.classList.add("show");
@@ -16,37 +18,54 @@ function showError(message) {
     }, 4000);
 }
 
-rechargeBtn.addEventListener("click",handlereload);
+getActiveCards(user)
+    .then((activeCards) => {
+        const cardIds = activeCards.map(c => `${c.id} (${c.type} ${c.lastFour})`).join(", ");
+        cardIdInput.placeholder = `Ex: ${activeCards[0].id}`;
+    })
+    .catch((error) => {
+        showError(error);
+        rechargeBtn.disabled = true;
+        cardIdInput.disabled = true;
+        
+        setTimeout(() => {
+            window.location.href = "/src/View/login.html";
+        }, 2000);
+    });
 
-function handlereload()
-{
-    
+function handleReload() {
     const amount = parseFloat(amountInput.value);
-    
-    if (!amount || amount <= 0) {
-        showError("Veuillez entrer un montant valide");
-        return;
-    }
-    if (amount > 50000) {
-        showError("Le montant maximum par recharge est de 50 000 DH");
-        return;
-    }
-    
+    const cardId = cardIdInput.value.trim();
     rechargeBtn.disabled = true;
     rechargeBtn.classList.add("loading");
     rechargeBtn.textContent = "Traitement en cours";
+    amountInput.disabled = true;
+    cardIdInput.disabled = true;
 
-    rechargeAccount(user,amount).then(()=>
-    {
-        rechargeBtn.classList.remove("loading");
-        rechargeBtn.textContent = "✓ Recharge réussie !";
-        rechargeBtn.style.background = "#2ecc71";
-        window.location.href="/src/View/dashboard.html";
-    }
-    ).catch((error)=>console.log(error));
-      
-    }
+    rechargeAccount(user, amount, cardId)
+        .then(() => {
+            
+            rechargeBtn.classList.remove("loading");
+            rechargeBtn.textContent = "✓ Recharge réussie !";
+            rechargeBtn.style.background = "#2ecc71";
+            
+            setTimeout(() => {
+                window.location.href = "/src/View/dashboard.html";
+            }, 1500);
+        })
+        .catch((error) => {
+            
+            rechargeBtn.classList.remove("loading");
+            rechargeBtn.disabled = false;
+            rechargeBtn.textContent = "Recharger";
+            rechargeBtn.style.background = "";
+            amountInput.disabled = false;
+            cardIdInput.disabled = false;
+            showError(error);
+        });
+}
 
+rechargeBtn.addEventListener("click", handleReload);
 
 retourBtn.addEventListener("click", () => {
     window.location.href = "/src/View/dashboard.html";

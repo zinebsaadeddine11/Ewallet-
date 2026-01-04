@@ -8,29 +8,34 @@
 </head>
 <body>
     <div class="card stats-card">
-        <h3>Transactions récentes</h3>
-        <table id ="transactions" class="transactions-table">
-          <thead>
-            <tr>
-              <select name="typeTransactions" id="filtreTrans">
-              <option id="3">Toutes</option>
-              <option id="2">Sortie</option>
-              <option id="1">Entrée</option>
-            </select>
-           <input type="text" placeholder="Rechercher ici" id="searchBar">
-          </tr>
-        <tr>
-         <th>Date</th>
-         <th>Description</th>
-         <th>Type</th>
-         <th>Montant</th>
+  <h3>Transactions récentes</h3>
+
+  <!-- FILTRES -->
+  <div class="filters">
+    <select name="typeTransactions" id="filtreTrans">
+      <option value="Toutes">Toutes</option>
+      <option value="Sortie">Sortie</option>
+      <option value="Entrée">Entrée</option>
+    </select>
+    <input type="text" placeholder="Rechercher ici" id="searchBar">
+  </div>
+
+  <!-- TABLE -->
+  <table id="transactions" class="transactions-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Montant</th>
       </tr>
-     </thead>
-      <tbody id="tbody">
-    <!-- Les transactions seront injectées ici -->
-  </tbody>
-        </table>
-      </div>
+    </thead>
+    <tbody id="tbody">
+      <!-- Les transactions seront injectées ici -->
+    </tbody>
+  </table>
+</div>
+
       <script type="module" src="/src/Controller/Transactions.js"></script>
 </body>
 </html>

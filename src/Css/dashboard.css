@@ -250,3 +250,53 @@ body {
   object-fit: contain;    /* Ajuste l'image sans la déformer */
 }
 
+/* CARTES BANCAIRES */
+.cards-list-card h3 {
+  margin-bottom: 15px;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.card-item {
+  background: linear-gradient(135deg, #8e7491, #b08ab4);
+  color: #fff;
+  padding: 15px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+
+.card-item:hover {
+  transform: translateY(-4px);
+}
+
+.card-item-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.card-number {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+
+.card-item-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.card-status.active {
+  color: #2ecc71;
+}
+
+.card-status.inactive {
+  color: #e74c3c;
+}

@@ -51,22 +51,23 @@ transferForm.addEventListener("submit", (e) => {
         return;
     }
     
-    if (amount > user.balance) {
-        showError("Solde insuffisant ! Votre solde : " + user.balance + " DH");
+    // ✅ FIX: Utiliser user.account.balance au lieu de user.balance
+    if (amount > user.account.balance) {
+        showError("Solde insuffisant ! Votre solde : " + user.account.balance + " DH");
         return;
     }
     
     // Désactiver le bouton pendant le traitement
     transferBtn.disabled = true;
     transferBtn.classList.add("loading");
-    transferBtn.textContent = "Traitement en cours";
+    transferBtn.textContent = "Traitement en cours...";
     
     // Simuler le traitement du transfert
     setTimeout(() => {
-        // Mettre à jour le solde
-        user.balance -= amount;
+        // ✅ FIX: Mettre à jour user.account.balance
+        user.account.balance -= amount;
         
-        // Ajouter la transaction
+        // ✅ FIX: Ajouter à user.account.transactions
         const newTransaction = {
             type: "-",
             title: "Transfert à " + email,
@@ -75,7 +76,7 @@ transferForm.addEventListener("submit", (e) => {
             status: "succeeded"
         };
         
-        user.transactions.push(newTransaction);
+        user.account.transactions.push(newTransaction);
         
         // Sauvegarder dans sessionStorage
         sessionStorage.setItem("user", JSON.stringify(user));
