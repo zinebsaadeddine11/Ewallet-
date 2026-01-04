@@ -1,44 +1,72 @@
-function checkUser(user) {
-    return new Promise((resolve, reject) => {
-        if (user) {
-            resolve(user);
-        } else {
-            reject("Vous devez vous connecter d'abord !");
-        }
-    });
+import { users, cards, transactions } from "../Model/Data.js";
+
+export function checkUser(user) {
+  return new Promise((resolve, reject) => {
+    if (!user) reject("Vous devez vous connecter d'abord");
+    resolve(user);
+  });
 }
-function validateAmount(amount, user) {
-    return new Promise((resolve, reject) => {
-        if (!amount || amount <= 0) {
-            reject("Veuillez entrer un montant valide");
-            return;
-        }
-        
-        if (amount < 1) {
-            reject("Le montant minimum pour un transfert est de 1 DH");
-            return;
-        }
-        
-        if (amount > user.account.balance) {
-            reject(`Solde insuffisant ! Votre solde : ${user.account.balance} DH`);
-            return;
-        }
-        
-        resolve(amount);
-    });
+export function validateAmount(amount, senderCard) {
+  return new Promise((resolve, reject) => {
+    if (!amount || amount <= 0) reject("Montant invalide");
+    if (amount > senderCard.balance) reject("Solde insuffisant");
+    resolve(amount);
+  });
 }
-function validateEmail(email, userEmail) {
-    return new Promise((resolve, reject) => {
-        if (!email || email.trim() === "") {
-            reject("Veuillez entrer l'email du destinataire");
-            return;
-        }
-        
-        if (email === userEmail) {
-            reject("Vous ne pouvez pas vous transférer de l'argent à vous-même !");
-            return;
-        }
-        
-        resolve(email);
-    });
+
+export function checkReceiver(email, senderEmail) {
+  return new Promise((resolve, reject) => {
+    if (!email) reject("Email requis");
+    if (email === senderEmail) reject("Transfert vers soi-même interdit");
+
+    const receiver = users.find(u => u.email === email);
+    if (!receiver) reject("Destinataire introuvable");
+
+    resolve(receiver);
+  });
+}
+
+export function getActiveCard(userId) {
+  return new Promise((resolve, reject) => {
+    const card = cards.find(c => c.userId === userId && c.active);
+    if (!card) reject("Aucune carte active trouvée");
+    resolve(card);
+  });
+}
+
+export function processTransfer({
+  sender,
+  receiver,
+  senderCard,
+  receiverCard,
+  amount,
+  description
+}) {
+  return new Promise(resolve => {
+    senderCard.balance -= amount;
+    receiverCard.balance += amount;
+
+    transactions.push(
+      {
+        id: transactions.length + 1,
+        cardId: senderCard.id,
+        type: "debit",
+        title: `Transfert vers ${receiver.name}`,
+        date: new Date().toLocaleDateString("fr-FR"),
+        amount,
+        status: "succeeded"
+      },
+      {
+        id: transactions.length + 2,
+        cardId: receiverCard.id,
+        type: "credit",
+        title: `Transfert de ${sender.name}`,
+        date: new Date().toLocaleDateString("fr-FR"),
+        amount,
+        status: "succeeded"
+      }
+    );
+    
+    resolve("Transfert effectué avec succès");
+  });
 }

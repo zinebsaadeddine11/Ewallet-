@@ -8,7 +8,6 @@ const errorMessage = document.getElementById("errorMessage");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 
-// Afficher un message d'erreur
 function showError(message) {
     errorMessage.textContent = message;
     errorMessage.classList.add("show");
