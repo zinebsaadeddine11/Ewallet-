@@ -1,4 +1,4 @@
-import { cards, transactions } from "../Model/Data.js";
+import {cards, transactions } from "../Model/Data.js";
 
 const welcome_message = document.getElementById("welcome_message");
 const balance = document.getElementById("balance");
@@ -14,11 +14,22 @@ const cardsContainer = document.getElementById("cardsContainer");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 
+if (user) {
+    welcome_message.textContent = "Bonjour " + user.name;
+    balance.textContent = user.balance + " DH";
+    if(user.balance >0)
+    {
+      balance.style.color="#12a012ff";
+    }
+    else
+    {
+      balance.style.color="red";
+    }
+}
 
 function loadData() {
   const storedCards = localStorage.getItem('ewallet_cards');
-  const storedTransactions = localStorage.getItem('ewallet_transactions');
-  
+
   
   if (!storedCards) {
     localStorage.setItem('ewallet_cards', JSON.stringify(cards));
@@ -39,19 +50,6 @@ function findCardsByUser(userId) {
 function findTransactionsByCard(cardId) {
   const data = loadData();
   return data.transactions.filter(t => t.cardId === cardId);
-}
-
-function getTotalBalanceByUser(userId) {
-  const data = loadData();
-  return data.cards
-    .filter(c => c.userId === userId)
-    .reduce((total, card) => total + card.balance, 0);
-}
-
-
-if (user) {
-  welcome_message.textContent = "Bonjour " + user.name;
-  balance.textContent = getTotalBalanceByUser(user.id) + " DH";
 }
 
 function getAllUserTransactions() {
@@ -123,12 +121,13 @@ function renderTransactions(transactions) {
 
     const tdType = document.createElement("td");
     tdType.textContent = t.type === "credit" ? "Entrée" : "Sortie";
-
+    tdType.style.color = t.type === "credit" ? "green" : "red";
     const tdAmount = document.createElement("td");
     tdAmount.textContent = t.amount + " DH";
 
     tr.append(tdDate, tdTitle, tdType, tdAmount);
     tbody.appendChild(tr);
+
   });
 }
 

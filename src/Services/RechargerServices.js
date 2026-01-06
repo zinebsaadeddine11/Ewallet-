@@ -1,9 +1,7 @@
 import { cards, transactions } from "../Model/Data.js";
 
-// Fonction pour charger les données depuis localStorage
 function loadData() {
     const storedCards = localStorage.getItem('ewallet_cards');
-    const storedTransactions = localStorage.getItem('ewallet_transactions');
     
     if (!storedCards) {
         localStorage.setItem('ewallet_cards', JSON.stringify(cards));
@@ -25,7 +23,6 @@ function checkUser(user) {
         }
     });
 }
-
 // Récupérer les cartes actives de l'utilisateur
 function getUserActiveCards(user) {
     const data = loadData();
@@ -83,15 +80,15 @@ function validateCard(user, cardId) {
         resolve(card);
     });
 }
-function updateCardBalance(card, amount) {
+function updateCardBalance(user,card, amount) {
     return new Promise((resolve, reject) => {
         const data = loadData();
         const cardIndex = data.cards.findIndex(c => c.id === card.id);
         
         if (cardIndex !== -1) {
+            user.balance-=amount;
             data.cards[cardIndex].balance += amount;
-            
-        
+            sessionStorage.setItem('user',JSON.stringify(user));
             localStorage.setItem('ewallet_cards', JSON.stringify(data.cards));
             
             resolve(data.cards[cardIndex]);
@@ -128,7 +125,7 @@ export function rechargeAccount(user, amount, cardId) {
         .then(() => validateAmount(amount))
         .then(() => validateCard(user, cardId))
         .then((card) => {
-            return updateCardBalance(card, amount)
+            return updateCardBalance(user,card, amount)
                 .then(() => addRechargeTransaction(card.id, amount));
         })
         .catch(error => {

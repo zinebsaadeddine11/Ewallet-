@@ -1,9 +1,9 @@
 export const users = [
-  { id: 1, name: "Ahmed Bennani", email: "ahmed12@gmail.com", password: "1234", accountNumber: "MA1234567890123456" },
-  { id: 2, name: "Ahlam Zaidi", email: "ahlam34@gmail.com", password: "abcd", accountNumber: "MA9876543210987654" },
-  { id: 3, name: "Yassine Idrissi", email: "yassine.dev@gmail.com", password: "pass123", accountNumber: "MA1122334455667788" },
-  { id: 4, name: "Sara Alami", email: "sara21@gmail.com", password: "sara2025", accountNumber: "MA5544332211009988" },
-  { id: 5, name: "Omar Fassi", email: "omar.pro@gmail.com", password: "omar@321", accountNumber: "MA7788990011223344" }
+  { id: 1, name: "Ahmed Bennani", email: "ahmed12@gmail.com", password: "1234", accountNumber: "MA1234567890123456" ,balance:200000},
+  { id: 2, name: "Ahlam Zaidi", email: "ahlam34@gmail.com", password: "abcd", accountNumber: "MA9876543210987654",balance:54000 },
+  { id: 3, name: "Yassine Idrissi", email: "yassine.dev@gmail.com", password: "pass123", accountNumber: "MA1122334455667788",balance:389000 },
+  { id: 4, name: "Sara Alami", email: "sara21@gmail.com", password: "sara2025", accountNumber: "MA5544332211009988" ,balance:275800},
+  { id: 5, name: "Omar Fassi", email: "omar.pro@gmail.com", password: "omar@321", accountNumber: "MA7788990011223344" ,balance:50000}
 ];
 
 export const cards = [

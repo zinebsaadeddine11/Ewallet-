@@ -3,7 +3,7 @@ import {
   validateAmount,
   checkReceiver,
   getActiveCard,
-  processTransfer
+  processTransfer,loadCards,loadData
 } from "../Services/TransfererServices.js";
 
 const transferForm = document.getElementById("transferForm");
@@ -14,7 +14,12 @@ const transferBtn = document.getElementById("transferBtn");
 const retourBtn = document.getElementById("retourBtn");
 const errorMessage = document.getElementById("errorMessage");
 const currentUser = JSON.parse(sessionStorage.getItem("user"));
+const cardHolder=document.getElementById("cardHolder");
 
+checkUser(currentUser)
+  .then(() => loadCards(currentUser, cardHolder))
+  .catch(showError);
+  
 function showError(msg) {
   errorMessage.textContent = msg;
   errorMessage.classList.add("show");
@@ -23,6 +28,7 @@ function showError(msg) {
 
 transferForm.addEventListener("submit", e => {
   e.preventDefault();
+  const data=loadData();
 
   const amount = Number(amountInput.value);
   const email = emailInput.value.trim();
