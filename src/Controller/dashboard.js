@@ -1,4 +1,4 @@
-import {cards, transactions } from "../Model/Data.js";
+import {cards, cryptoAccounts, paypalAccounts, transactions } from "../Model/Data.js";
 
 const welcome_message = document.getElementById("welcome_message");
 const balance = document.getElementById("balance");
@@ -28,30 +28,49 @@ if (user) {
 }
 
 function loadData() {
-  const storedCards = localStorage.getItem('ewallet_cards');
-
-  
-  if (!storedCards) {
+  if (!localStorage.getItem('ewallet_cards')) {
     localStorage.setItem('ewallet_cards', JSON.stringify(cards));
+  }
+
+  if (!localStorage.getItem('ewallet_crypto')) {
+    localStorage.setItem('ewallet_crypto', JSON.stringify(cryptoAccounts));
+  }
+
+  if (!localStorage.getItem('ewallet_paypal')) {
+    localStorage.setItem('ewallet_paypal', JSON.stringify(paypalAccounts));
+  }
+
+  if (!localStorage.getItem('ewallet_transactions')) {
     localStorage.setItem('ewallet_transactions', JSON.stringify(transactions));
   }
-  
+
   return {
     cards: JSON.parse(localStorage.getItem('ewallet_cards')),
+    cryptos: JSON.parse(localStorage.getItem('ewallet_crypto')),
+    paypals: JSON.parse(localStorage.getItem('ewallet_paypal')),
     transactions: JSON.parse(localStorage.getItem('ewallet_transactions'))
   };
 }
+
 
 function findCardsByUser(userId) {
   const data = loadData();
   return data.cards.filter(c => c.userId === userId);
 }
-
+function findCryptoByUser(userId)
+{
+  const data = loadData();
+  return data.cryptos.filter(cr=>cr.userId===userId);
+}
+function findPaypalByUser(userId)
+{
+  const data = loadData();
+  return data.paypals.filter(p=>p.userId===userId);
+}
 function findTransactionsByCard(cardId) {
   const data = loadData();
   return data.transactions.filter(t => t.cardId === cardId);
 }
-
 function getAllUserTransactions() {
   if (!user) return [];
 
@@ -179,6 +198,70 @@ function renderCards() {
     cardsContainer.appendChild(div);
   });
 }
+function renderCryptos() {
+  if (!user) return;
+
+  const userCryptos = findCryptoByUser(user.id);
+  cryptoContainer.innerHTML = "";
+
+  if (userCryptos.length === 0) {
+    cryptoContainer.innerHTML = "<p>Aucun compte crypto associé</p>";
+    return;
+  }
+
+  userCryptos.forEach(crypto => {
+    const div = document.createElement("div");
+    div.classList.add("card-item");
+
+    div.innerHTML = `
+      <div class="card-item-header">
+        <span>${crypto.currency}</span>
+        <span class="card-status ${crypto.status ? "active" : "inactive"}">
+          ${crypto.status ? "Active" : "Inactive"}
+        </span>
+      </div>
+
+      <div class="card-item-footer">
+        <strong>${crypto.balance} </strong>
+      </div>
+    `;
+
+    cryptoContainer.appendChild(div);
+  });
+}
+function renderPaypals() {
+  if (!user) return;
+
+  const userPaypals = findPaypalByUser(user.id);
+  paypalContainer.innerHTML = "";
+
+  if (userPaypals.length === 0) {
+    paypalContainer.innerHTML = "<p>Aucun compte paypal associé</p>";
+    return;
+  }
+
+  userPaypals.forEach(paypal => {
+    const div = document.createElement("div");
+    div.classList.add("card-item");
+
+    div.innerHTML = `
+      <div class="card-item-header">
+      <span></span>
+        <span class="card-status ${paypal.status ? "active" : "inactive"}">
+          ${paypal.status ? "Active" : "Inactive"}
+        </span>
+      </div>
+
+      <div class="card-number" style="font-size: 14px; word-break: break-all;"> ****@${paypal.email.split("@")[1]}</div>
+
+      <div class="card-item-footer">
+        <strong>${paypal.balance} ${paypal.currency}</strong>
+      </div>
+    `;
+
+    paypalContainer.appendChild(div);
+  });
+}
 
 payer.addEventListener("click", () => {
   window.location.href = "/src/View/Payer.html";
@@ -194,5 +277,7 @@ transferer.addEventListener("click", () => {
 
 if (user) {
   renderCards();
+  renderCryptos();
+  renderPaypals();
   updateDisplay();
 }

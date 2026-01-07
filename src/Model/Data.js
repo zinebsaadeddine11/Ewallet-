@@ -15,6 +15,25 @@ export const cards = [
   { id: 6, userId: 5, cardNumber: "**** **** **** 5555", lastFour: "5555", type: "MasterCard", expiry: "12/29", active: true, balance: 17800 }
 ];
 
+export const cryptoAccounts = [
+  { id: 1, userId: 1, currency: "Bitcoin", balance: 0.12, status: "active" },
+  { id: 2, userId: 2, currency: "Ethereum", balance: 1.5, status: "active" },
+  { id: 3, userId: 2, currency: "Stablecoin", balance: 5000, status: "active" },
+  { id: 4, userId: 3, currency: "Ethereum", balance: 2.3, status: "active" },
+  { id: 5, userId: 4, currency: "Stablecoin", balance: 2000, status: "active" },
+  { id: 6, userId: 5, currency: "Bitcoin", balance: 0.9, status: "active" }
+];
+
+export const paypalAccounts = [
+  { id: 1, userId: 1, email: "ahmed.paypal@gmail.com", balance: 1800, currency: "USD", status: "active" },
+  { id: 6, userId: 1, email: "ahmed2.paypal@gmail.com", balance: 2000, currency: "USD", status: "active" },
+  { id: 2, userId: 2, email: "ahlam.paypal@gmail.com", balance: 4500, currency: "EUR", status: "active" },
+  { id: 3, userId: 3, email: "yassine.paypal@gmail.com", balance: 500, currency: "USD", status: "active" },
+  { id: 4, userId: 4, email: "sara.paypal@gmail.com", balance: 600, currency: "USD", status: "active" },
+  { id: 5, userId: 5, email: "omar.paypal@gmail.com", balance: 3500, currency: "USD", status: "active" }
+];
+
+
 export const transactions = [
   { id: 1, cardId: 1, type: "debit", title: "Bim Supermarché", date: "12/11/2025", amount: 100, status: "succeeded" },
   { id: 2, cardId: 1, type: "debit", title: "Restaurant La Villa", date: "12/12/2025", amount: 300, status: "succeeded" },
@@ -70,9 +89,3 @@ export function filterTransactions(cardId, type) {
   return findTransactionsByCard(cardId);
 }
 
-/* Calculs de solde */
-export function getTotalBalanceByUser(userId) {
-  return cards
-    .filter(c => c.userId === userId)
-    .reduce((total, card) => total + card.balance, 0);
-}
