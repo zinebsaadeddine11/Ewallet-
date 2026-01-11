@@ -13,8 +13,10 @@
         <!-- <form id="rechargeForm"> -->
             <label for="amount">Montant (DH)</label>
             <input type="number" id="amount" placeholder="Montant à recharger" min="1" required>
-            <label for="card">Carte Id</label>
-            <input type="text" id="cardId" placeholder="Id de la carte à recharger" required>
+            <label for="DestSelect">Destination de recharge</label>
+            <select id="DestSelect" required>
+            <option value="">-- Choisir la destination --</option>
+            </select>
 
             <div id="errorMessage" class="error-message"></div>
 
