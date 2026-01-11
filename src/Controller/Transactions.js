@@ -1,14 +1,8 @@
 import { cards, cryptoAccounts, paypalAccounts, transactions } from "../Model/Data.js";
 
-const welcome_message = document.getElementById("welcome_message");
-const balance = document.getElementById("balance");
 const filtreTrans = document.getElementById("filtreTrans");
 const tbody = document.getElementById("tbody");
 const searchBar = document.getElementById("searchBar");
-
-const cardsContainer = document.getElementById("cardsContainer");
-const cryptoContainer = document.getElementById("cryptoContainer");
-const paypalContainer = document.getElementById("paypalContainer");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 
